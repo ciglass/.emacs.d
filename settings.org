@@ -99,25 +99,35 @@ git submodule update
   ;; Stricter filters
   (setq qgrep-default-find "find . \\( -wholename '*/.svn' -o -wholename '*/obj' -o -wholename '*/.git' -o -wholename '*/VCOMP' \\) -prune -o -type f \\( '!' -name '*atdesignerSave.ses' -a \\( '!' -name '*~' \\) -a \\( '!' -name '#*#' \\) -a \\( -name '*' \\) \\) -type f -print0")
   (setq qgrep-default-grep "grep -iI -nH -e \"%s\"")
-
+#+END_SRC
+* ediff
+  Use a single frame with a/b/merge/control windows.
+#+BEGIN_SRC emacs-lisp
   (setq ediff-split-window-function 'split-window-horizontally)
   (setq ediff-diff-options "-w")
   (setq ediff-control-frame-upward-shift 40)
   (setq ediff-narrow-control-frame-leftward-shift -30)
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-
-
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-diff-options "-w")
+  (setq ediff-control-frame-upward-shift 40)
+  (setq ediff-narrow-control-frame-leftward-shift -30)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+END_SRC
+* Hotkeys
+#+BEGIN_SRC emacs-lisp
   (global-set-key [f1] (lambda () (interactive) (shell "*shell*")))
   (global-set-key [f2] (lambda () (interactive) (shell "*shell*<2>")))
   (global-set-key [f3] (lambda () (interactive) (shell "*shell*<3>")))
   (global-set-key [f4] (lambda () (interactive) (shell "*shell*<4>")))
 
+  (global-set-key (kbd "\C-c w") 'find-file-at-point)
+#+END_SRC
+* Misc
+#+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
   (setq-default truncate-lines t)
   (setq-default indent-tabs-mode nil)
-
-  (global-set-key (kbd "\C-c w") 'find-file-at-point)
-
 
   (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -219,6 +229,6 @@ git submodule update
   (customize-set-variable
    'display-buffer-base-action
    '((display-buffer-reuse-window display-buffer-same-window
-      display-buffer-in-previous-window
-      display-buffer-use-some-window)))
+                                  display-buffer-in-previous-window
+                                  display-buffer-use-some-window)))
 #+END_SRC
