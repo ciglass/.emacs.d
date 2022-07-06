@@ -30,12 +30,12 @@ git submodule update
   (package-initialize)
 #+END_SRC
 * Visual Appearance
-** Startup Visual Settings
+** Emacs Startup
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (setq inhibit-splash-screen t)
 #+END_SRC
-** Modeline Settings
+** Modeline
 #+BEGIN_SRC emacs-lisp   
   (menu-bar-mode -1)
   (tool-bar-mode -1)
@@ -71,7 +71,8 @@ git submodule update
   (global-set-key (kbd "\C-x o") 'select-next-window)
   (global-set-key (kbd "\C-x i")  'select-previous-window)
 #+END_SRC
-** Buffer Menu Settings
+** Buffer Menu
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'buffer-menu)
   (global-set-key (kbd "C-x C-S-b") 'buffer-menu-other-window)
 #+END_SRC
