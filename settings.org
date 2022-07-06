@@ -19,185 +19,205 @@ ln -s ~/.emacs.d/.emacs
 cd ~/.emacs.d
 git submodule init
 git submodule update 
-#+END_SRC* Packages
+#+END_SRC
+* Packages
 #+BEGIN_SRC emacs-lisp
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                           ("melpa" . "https://melpa.org/packages/")))
-(let ((default-directory "~/.emacs.d/elpa/"))
-  (normal-top-level-add-to-load-path '("."))
-  (normal-top-level-add-subdirs-to-load-path))
-(package-initialize)
+  (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                             ("melpa" . "https://melpa.org/packages/")))
+  (let ((default-directory "~/.emacs.d/elpa/"))
+    (normal-top-level-add-to-load-path '("."))
+    (normal-top-level-add-subdirs-to-load-path))
+  (package-initialize)
+#+END_SRC
+* Visual Appearance
+** Startup Visual Settings
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  (setq inhibit-splash-screen t)
+#+END_SRC
+** Modeline Settings
+#+BEGIN_SRC emacs-lisp   
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+  (display-time-mode 1)
 
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(setq inhibit-splash-screen t)
+  (setq-default column-number-mode t)
+#+END_SRC
+** Color Theme
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'hc-zenburn t)
+#+END_SRC
+** Window Sizing
+   Set sensible window split policies
+#+BEGIN_SRC emacs-lisp
+  (setq split-height-threshold nil)
+  (setq split-width-threshold 0)
+#+END_SRC
+* Movement
+** Window Cycling
+#+BEGIN_SRC emacs-lisp
+  (defun select-next-window ()
+    "Switch to the next window"
+    (interactive)
+    (select-window (next-window)))
 
-(display-time-mode 1)
+  (defun select-previous-window ()
+    "Switch to the previous window"
+    (interactive)
+    (select-window (previous-window)))
 
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
+  (global-set-key (kbd "\C-x o") 'select-next-window)
+  (global-set-key (kbd "\C-x i")  'select-previous-window)
+#+END_SRC
+** Buffer Menu Settings
+  (global-set-key (kbd "C-x C-b") 'buffer-menu)
+  (global-set-key (kbd "C-x C-S-b") 'buffer-menu-other-window)
+#+END_SRC
+* Search and Grep
+  Swap incremental serach keys with regex isearch keys
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "\C-s") 'isearch-forward-regexp)
+  (global-set-key (kbd "\C-r") 'isearch-backward-regexp)
+  (global-set-key [(control meta s)] 'isearch-forward)
+  (global-set-key [(control meta r)] 'isearch-backward)
+#+END_SRC
+** qgrep
+   Custom package for quickly grepping at point.
+#+BEGIN_SRC emacs-lisp
+  (let ((default-directory "~/.emacs.d/qgrep/"))
+    (normal-top-level-add-to-load-path '("."))
+    (normal-top-level-add-subdirs-to-load-path))
 
-(setq-default column-number-mode t)
+  (autoload 'qgrep "qgrep" "Quick grep" t)
+  (autoload 'qgrep-no-confirm "qgrep" "Quick grep" t)
+  (autoload 'qgrep-confirm "qgrep" "Quick grep" t)
+  (global-set-key (kbd "\C-c g") 'qgrep-no-confirm)
+  (global-set-key (kbd "\C-c G") 'qgrep-confirm)
+  ;; Stricter filters
+  (setq qgrep-default-find "find . \\( -wholename '*/.svn' -o -wholename '*/obj' -o -wholename '*/.git' -o -wholename '*/VCOMP' \\) -prune -o -type f \\( '!' -name '*atdesignerSave.ses' -a \\( '!' -name '*~' \\) -a \\( '!' -name '#*#' \\) -a \\( -name '*' \\) \\) -type f -print0")
+  (setq qgrep-default-grep "grep -iI -nH -e \"%s\"")
 
-(load-theme 'hc-zenburn t)
-
-(defun select-next-window ()
-  "Switch to the next window"
-  (interactive)
-  (select-window (next-window)))
-
-(defun select-previous-window ()
-  "Switch to the previous window"
-  (interactive)
-  (select-window (previous-window)))
-
-(global-set-key (kbd "\C-x o") 'select-next-window)
-(global-set-key (kbd "\C-x i")  'select-previous-window)
-
-(global-set-key (kbd "C-x C-b") 'buffer-menu)
-(global-set-key (kbd "C-x C-S-b") 'buffer-menu-other-window)
-
-(global-set-key (kbd "\C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "\C-r") 'isearch-backward-regexp)
-(global-set-key [(control meta s)] 'isearch-forward)
-(global-set-key [(control meta r)] 'isearch-backward)
-
-
-(let ((default-directory "~/.emacs.d/qgrep/"))
-  (normal-top-level-add-to-load-path '("."))
-  (normal-top-level-add-subdirs-to-load-path))
-
-(autoload 'qgrep "qgrep" "Quick grep" t)
-(autoload 'qgrep-no-confirm "qgrep" "Quick grep" t)
-(autoload 'qgrep-confirm "qgrep" "Quick grep" t)
-(global-set-key (kbd "\C-c g") 'qgrep-no-confirm)
-(global-set-key (kbd "\C-c G") 'qgrep-confirm)
-;; Stricter filters
-(setq qgrep-default-find "find . \\( -wholename '*/.svn' -o -wholename '*/obj' -o -wholename '*/.git' -o -wholename '*/VCOMP' \\) -prune -o -type f \\( '!' -name '*atdesignerSave.ses' -a \\( '!' -name '*~' \\) -a \\( '!' -name '#*#' \\) -a \\( -name '*' \\) \\) -type f -print0")
-(setq qgrep-default-grep "grep -iI -nH -e \"%s\"")
-
-(setq ediff-split-window-function 'split-window-horizontally)
-(setq ediff-diff-options "-w")
-(setq ediff-control-frame-upward-shift 40)
-(setq ediff-narrow-control-frame-leftward-shift -30)
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-
-
-(global-set-key [f1] (lambda () (interactive) (shell "*shell*")))
-(global-set-key [f2] (lambda () (interactive) (shell "*shell*<2>")))
-(global-set-key [f3] (lambda () (interactive) (shell "*shell*<3>")))
-(global-set-key [f4] (lambda () (interactive) (shell "*shell*<4>")))
-
-(show-paren-mode 1)
-(setq-default truncate-lines t)
-(setq-default indent-tabs-mode nil)
-
-(global-set-key (kbd "\C-c w") 'find-file-at-point)
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-diff-options "-w")
+  (setq ediff-control-frame-upward-shift 40)
+  (setq ediff-narrow-control-frame-leftward-shift -30)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 
-(fset 'yes-or-no-p 'y-or-n-p)
+  (global-set-key [f1] (lambda () (interactive) (shell "*shell*")))
+  (global-set-key [f2] (lambda () (interactive) (shell "*shell*<2>")))
+  (global-set-key [f3] (lambda () (interactive) (shell "*shell*<3>")))
+  (global-set-key [f4] (lambda () (interactive) (shell "*shell*<4>")))
 
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-                                        ;(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+  (show-paren-mode 1)
+  (setq-default truncate-lines t)
+  (setq-default indent-tabs-mode nil)
 
-(add-to-list 'auto-mode-alist '("\\.bzl\\'" . python-mode))
-(add-to-list 'auto-mode-alist '("\\BUILD\\'" . python-mode))
+  (global-set-key (kbd "\C-c w") 'find-file-at-point)
 
-(setq ediff-split-window-function 'split-window-horizontally)
-(setq ediff-diff-options "-w")
-(setq ediff-control-frame-upward-shift 40)
-(setq ediff-narrow-control-frame-leftward-shift -30)
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-(defun copy-line ()
-  "Copy from the current point to end of the line to the kill ring without deleting it."
-  (interactive)
-  (copy-region-as-kill (point) (line-end-position)))
-(global-set-key (kbd "C-S-k") 'copy-line)
+  (fset 'yes-or-no-p 'y-or-n-p)
 
-; YAS
-(yas-global-mode)
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+                                          ;(setq uniquify-separator "/")
+  (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+  (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
-; Name a macro with M-x kmacro-name-last-macro, then insert it with M-x insert-kb-macro, swap "lambda" for "defun <function name>", the put it into a comment in the file
-; When want to recall it, eval the region that defines the function
+  (add-to-list 'auto-mode-alist '("\\.bzl\\'" . python-mode))
+  (add-to-list 'auto-mode-alist '("\\BUILD\\'" . python-mode))
 
-; Disable C-z because it's used in tmux
-(global-unset-key "\C-z")
-(put 'narrow-to-region 'disabled nil)
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-diff-options "-w")
+  (setq ediff-control-frame-upward-shift 40)
+  (setq ediff-narrow-control-frame-leftward-shift -30)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-; Make json tabs smaller to match the wavedrom editor defaults
-(add-hook 'json-mode-hook
-          (lambda ()
-            (make-local-variable 'js-indent-level)
-            (setq js-indent-level 2)))
+  (defun copy-line ()
+    "Copy from the current point to end of the line to the kill ring without deleting it."
+    (interactive)
+    (copy-region-as-kill (point) (line-end-position)))
+  (global-set-key (kbd "C-S-k") 'copy-line)
 
-; Make all wavedrom files come up in json-mode without a mode string at the top of the file
-(add-to-list 'auto-mode-alist '("\\.wavedrom\\'" . json-mode))
+  ; YAS
+  (yas-global-mode)
 
-(defun waves ()
-  "Search backwards in the shell for the last waves command and execute."
-  (interactive)
-  (point-max)
-  (let ((wave-command))
-    (save-excursion
-      (re-search-backward "%I:sim: waves available:")
-      (re-search-forward "%I:sim: waves available: ")
-      (setq wave-command (buffer-substring-no-properties (point) (line-end-position))))
-    (insert wave-command)
-    (comint-send-input)))
+  ; Name a macro with M-x kmacro-name-last-macro, then insert it with M-x insert-kb-macro, swap "lambda" for "defun <function name>", the put it into a comment in the file
+  ; When want to recall it, eval the region that defines the function
 
-(defun logfile ()
-  "Search backwards in the shell for the last logfile and open it in a new buffer."
-  (interactive)
-  (point-max)
-  (let ((logfile-command))
-    (save-excursion
-      (re-search-backward "[[:space:]]+[^[:space:]]+\.log")
-      (forward-char)
-      (setq logfile-command (buffer-substring-no-properties (point) (line-end-position))))
-    (find-file logfile-command)))
+  ; Disable C-z because it's used in tmux
+  (global-unset-key "\C-z")
+  (put 'narrow-to-region 'disabled nil)
 
-(global-set-key (kbd "\C-c C-S-R") 'waves)
-(global-set-key (kbd "\C-c C-S-L") 'logfile)
+  ; Make json tabs smaller to match the wavedrom editor defaults
+  (add-hook 'json-mode-hook
+            (lambda ()
+              (make-local-variable 'js-indent-level)
+              (setq js-indent-level 2)))
 
-(defun rerun-last ()
-  "Switch back to the shell buffer and rerun the last command."
-  (interactive)
-  (shell "*shell*")
-  (end-of-buffer)
-  (comint-previous-input 1)
-  (comint-send-input))
+  ; Make all wavedrom files come up in json-mode without a mode string at the top of the file
+  (add-to-list 'auto-mode-alist '("\\.wavedrom\\'" . json-mode))
 
-(global-set-key (kbd "\C-c r") 'rerun-last)
+  (defun waves ()
+    "Search backwards in the shell for the last waves command and execute."
+    (interactive)
+    (point-max)
+    (let ((wave-command))
+      (save-excursion
+        (re-search-backward "%I:sim: waves available:")
+        (re-search-forward "%I:sim: waves available: ")
+        (setq wave-command (buffer-substring-no-properties (point) (line-end-position))))
+      (insert wave-command)
+      (comint-send-input)))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("a37d20710ab581792b7c9f8a075fcbb775d4ffa6c8bce9137c84951b1b453016" default))
- '(package-selected-packages
-   '(magit zenburn-theme yasnippet yaml-mode undo-tree json-mode jinja2-mode hc-zenburn-theme evil csv-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(put 'view-emacs-news 'disabled t)
-(put 'view-emacs-problems 'disabled t)
+  (defun logfile ()
+    "Search backwards in the shell for the last logfile and open it in a new buffer."
+    (interactive)
+    (point-max)
+    (let ((logfile-command))
+      (save-excursion
+        (re-search-backward "[[:space:]]+[^[:space:]]+\.log")
+        (forward-char)
+        (setq logfile-command (buffer-substring-no-properties (point) (line-end-position))))
+      (find-file logfile-command)))
 
-;; Attempted better window management after upgrading to emacs 27
-(customize-set-variable
- 'display-buffer-base-action
- '((display-buffer-reuse-window display-buffer-same-window
-    display-buffer-in-previous-window
-    display-buffer-use-some-window)))
+  (global-set-key (kbd "\C-c C-S-R") 'waves)
+  (global-set-key (kbd "\C-c C-S-L") 'logfile)
+
+  (defun rerun-last ()
+    "Switch back to the shell buffer and rerun the last command."
+    (interactive)
+    (shell "*shell*")
+    (end-of-buffer)
+    (comint-previous-input 1)
+    (comint-send-input))
+
+  (global-set-key (kbd "\C-c r") 'rerun-last)
+
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(custom-safe-themes
+     '("a37d20710ab581792b7c9f8a075fcbb775d4ffa6c8bce9137c84951b1b453016" default))
+   '(package-selected-packages
+     '(magit zenburn-theme yasnippet yaml-mode undo-tree json-mode jinja2-mode hc-zenburn-theme evil csv-mode)))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  (put 'view-emacs-news 'disabled t)
+  (put 'view-emacs-problems 'disabled t)
+
+  ;; Attempted better window management after upgrading to emacs 27
+  (customize-set-variable
+   'display-buffer-base-action
+   '((display-buffer-reuse-window display-buffer-same-window
+      display-buffer-in-previous-window
+      display-buffer-use-some-window)))
 #+END_SRC
