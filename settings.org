@@ -1,5 +1,25 @@
 #+TITLE: Cameron Glass' Emacs Configuration
-* Packages
+* Setup
+  Clone this repository in the ~/.emacs.d directory.
+  Then create a symbolic link to ~/.emacs.d/.emacs.
+#+BEGIN_SRC bash
+ln -s ~/.emacs.d/.emacs
+#+END_SRC
+** Package installation
+   On first run, several package will not be installed. 
+*** Install packages by doing =M-x package-list-packages=
+*** For each package to install, go to appropriate line and mark by hitting =i=
+**** hc-zenburn-theme
+**** yasnippet
+*** Install by hitting =x=
+*** Restart emacs
+** Submodule Setup
+   The qgrep package is install by source as a submodule.
+#+BEGIN_SRC bash
+cd ~/.emacs.d
+git submodule init
+git submodule update 
+#+END_SRC* Packages
 #+BEGIN_SRC emacs-lisp
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                            ("melpa" . "https://melpa.org/packages/")))
