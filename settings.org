@@ -1,10 +1,7 @@
 #+TITLE: Cameron Glass' Emacs Configuration
 * Setup
   Clone this repository in the ~/.emacs.d directory.
-  Then create a symbolic link to ~/.emacs.d/.emacs.
-#+BEGIN_SRC bash
-ln -s ~/.emacs.d/.emacs
-#+END_SRC
+  This repository uses the newer-style
 ** Package installation
    On first run, several package will not be installed. 
 *** Install packages by doing =M-x package-list-packages=
@@ -34,6 +31,8 @@ git submodule update
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (setq inhibit-splash-screen t)
+  (put 'view-emacs-news 'disabled t)
+  (put 'view-emacs-problems 'disabled t)
 #+END_SRC
 ** Modeline
 #+BEGIN_SRC emacs-lisp   
@@ -54,6 +53,13 @@ git submodule update
 #+BEGIN_SRC emacs-lisp
   (setq split-height-threshold nil)
   (setq split-width-threshold 0)
+
+  ;; Attempted better window management after upgrading to emacs 27
+  (customize-set-variable
+   'display-buffer-base-action
+   '((display-buffer-reuse-window display-buffer-same-window
+                                  display-buffer-in-previous-window
+                                  display-buffer-use-some-window)))
 #+END_SRC
 * Movement
 ** Window Cycling
@@ -108,11 +114,6 @@ git submodule update
   (setq ediff-control-frame-upward-shift 40)
   (setq ediff-narrow-control-frame-leftward-shift -30)
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-  (setq ediff-split-window-function 'split-window-horizontally)
-  (setq ediff-diff-options "-w")
-  (setq ediff-control-frame-upward-shift 40)
-  (setq ediff-narrow-control-frame-leftward-shift -30)
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 #+END_SRC
 * Hotkeys
 #+BEGIN_SRC emacs-lisp
@@ -123,7 +124,7 @@ git submodule update
 
   (global-set-key (kbd "\C-c w") 'find-file-at-point)
 #+END_SRC
-* Misc
+* TODO Misc Buffer Behavior
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
   (setq-default truncate-lines t)
@@ -136,15 +137,6 @@ git submodule update
                                           ;(setq uniquify-separator "/")
   (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
   (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
-
-  (add-to-list 'auto-mode-alist '("\\.bzl\\'" . python-mode))
-  (add-to-list 'auto-mode-alist '("\\BUILD\\'" . python-mode))
-
-  (setq ediff-split-window-function 'split-window-horizontally)
-  (setq ediff-diff-options "-w")
-  (setq ediff-control-frame-upward-shift 40)
-  (setq ediff-narrow-control-frame-leftward-shift -30)
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
   (defun copy-line ()
     "Copy from the current point to end of the line to the kill ring without deleting it."
@@ -162,6 +154,14 @@ git submodule update
   (global-unset-key "\C-z")
   (put 'narrow-to-region 'disabled nil)
 
+#+END_SRC
+* Bazel
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.bzl\\'" . python-mode))
+  (add-to-list 'auto-mode-alist '("\\BUILD\\'" . python-mode))
+#+END_SRC
+* Wavedrom
+#+BEGIN_SRC emacs-lisp
   ; Make json tabs smaller to match the wavedrom editor defaults
   (add-hook 'json-mode-hook
             (lambda ()
@@ -170,6 +170,10 @@ git submodule update
 
   ; Make all wavedrom files come up in json-mode without a mode string at the top of the file
   (add-to-list 'auto-mode-alist '("\\.wavedrom\\'" . json-mode))
+#+END_SRC
+* Shell functions
+  These functions and key bindings speed up repetitive shell tasks I run frequently.
+#+BEGIN_SRC emacs-lisp
 
   (defun waves ()
     "Search backwards in the shell for the last waves command and execute."
@@ -206,7 +210,9 @@ git submodule update
     (comint-send-input))
 
   (global-set-key (kbd "\C-c r") 'rerun-last)
-
+#+END_SRC
+* Emacs Customize
+#+BEGIN_SRC emacs-lisp
   (custom-set-variables
    ;; custom-set-variables was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
@@ -222,13 +228,6 @@ git submodule update
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    )
-  (put 'view-emacs-news 'disabled t)
-  (put 'view-emacs-problems 'disabled t)
-
-  ;; Attempted better window management after upgrading to emacs 27
-  (customize-set-variable
-   'display-buffer-base-action
-   '((display-buffer-reuse-window display-buffer-same-window
-                                  display-buffer-in-previous-window
-                                  display-buffer-use-some-window)))
 #+END_SRC
+# Some other good emacs tips to explore: https://github.com/danielmai/.emacs.d
+
