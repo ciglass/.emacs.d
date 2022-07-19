@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: wire_or_localparam
+# key: wop
+# --
+localparam [31:0] ${1:$$(upcase yas-text)}_PRE_GATE_STAGES = 32'd1;
+localparam [31:0] ${1:$(upcase yas-text)}_POST_GATE_STAGES = 32'd1;

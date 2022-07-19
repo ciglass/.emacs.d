@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: variable_declaration
+# key: vard
+# --
+${1:logic  } w_$2;
+   $1 r_$2;$0

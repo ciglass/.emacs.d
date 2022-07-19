@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: unused_ok
+# key: uok
+# --
+wire unused__ok = &{1'b0,
+                    $0,
+                    /*AUTOUNUSED*/
+                    1'b0};

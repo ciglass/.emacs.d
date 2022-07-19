@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: sv_output
+# key: svo
+# --
+output $1 $2,$0

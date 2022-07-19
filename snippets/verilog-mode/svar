@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: single_variable
+# key: svar
+# --
+${1:logic}   w_$2;$0

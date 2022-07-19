@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rdlf
+# key: rdlf
+# --
+field {desc = "$1";} $2[${3:1}];$0

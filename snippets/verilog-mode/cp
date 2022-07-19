@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: cp
+# key: cp
+# --
+  // $1
+  localparam [31:0] ${1:$(upcase yas-text)) = 32'd2;
+

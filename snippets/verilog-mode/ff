@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: single_flop
+# key: ff
+# --
+always_ff @(posedge $1) begin
+  $0
+end

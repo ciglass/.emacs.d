@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: unused_fixme
+# key: uf
+# --
+wire unused__fixme = &{1'b0,
+                       $0,
+                       1'b0};

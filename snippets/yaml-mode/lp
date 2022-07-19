@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: localparam
+# key: lp
+# expand-env: ((yas-indent-line 'fixed))
+# --
+- name: $1
+  value: $2
+  doc_summary: $3

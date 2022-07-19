@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: assign
+# key: asi
+# --
+assign $1 = $0;

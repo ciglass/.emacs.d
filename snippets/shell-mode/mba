@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: relative_bazel_action
+# key: mba
+# --
+bazel ${1:$$(yas-choose-value '("build" "run" "test" "query"))} ${2://`(directory-file-name (file-relative-name (file-truename default-directory) (file-truename (replace-regexp-in-string "\n\\'" "" (shell-command-to-string "git rev-parse --show-toplevel")))))`}:$0

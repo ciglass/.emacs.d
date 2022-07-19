@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: struct_field_wire
+# key: stfw
+# expand-env: ((yas-indent-line 'fixed))
+# --
+- name: $1
+  type: logic
+  width: $2
+  doc_summary: $3

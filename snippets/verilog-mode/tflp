@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: through_flop
+# key: tflp
+# --
+r_$1 <= w_$1;

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: auto_inst_param
+# key: ainstp
+# expand-env: ((yas-indent-line 'fixed))
+# --
+/* $1 AUTO_TEMPLATE (
+ $0
+ );*/
+ $1
+  #(/*AUTOINSTPARAM*/)
+ $2
+  (/*AUTOINST*/);

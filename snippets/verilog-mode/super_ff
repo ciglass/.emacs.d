@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: fancy_ff
+# key: fancy_ff
+# --
+$1.controller('$2', [${3:$(mapconcat (lambda (x) (format "'%s'" x))
+                                     (split-string yas-text "," t "[ \t]") ", ")}, function($3) {
+$0;
+}])

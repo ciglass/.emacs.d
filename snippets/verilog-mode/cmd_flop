@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: command_flop
+# key: cmd_flop
+# --
+always_comb begin
+  w_$1_cmd__s = $2__s.vld ? $2__s : r_$1_cmd__s;
+  w_$1_cmd__s.vld = $2__s.vld;
+end

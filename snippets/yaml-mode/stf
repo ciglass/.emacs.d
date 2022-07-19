@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: struct_field
+# key: stf
+# expand-env: ((yas-indent-line 'fixed))
+# --
+- name: $1
+  type: $2
+  doc_summary: $3$0

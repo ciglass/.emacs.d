@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: local_repo
+# key: local
+# expand-env: ((yas-indent-line 'fixed))
+# --
+_maybe(
+    repo_rule = native.local_repository,
+    name = "$1",
+    path = "/proj/cglass/$1",
+)

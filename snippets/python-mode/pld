@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: pylint_disable
+# key: pld
+# --
+# pylint: disable=$0

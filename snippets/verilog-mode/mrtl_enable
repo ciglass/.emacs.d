@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: mrtl_enable
+# key: mwe
+# --
+// mrtl: enable=$0

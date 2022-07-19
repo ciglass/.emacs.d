@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: mrtl_disable
+# key: mwd
+# --
+// mrtl: disable=$0

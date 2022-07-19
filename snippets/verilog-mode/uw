@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: unused_port_wire
+# key: uw
+# --
+(unused__@"vl-name"[]),

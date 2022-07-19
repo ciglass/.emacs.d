@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lint_enable
+# key: le
+# --
+// lint: enable=

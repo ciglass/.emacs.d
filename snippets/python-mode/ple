@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: pylint_enable
+# key: ple
+# --
+# pylint: enable=$0

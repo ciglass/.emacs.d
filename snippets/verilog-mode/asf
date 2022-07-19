@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: assign_fixme
+# key: asf
+# --
+assign $1 = $0; // FIXME

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: one
+# key: one
+# --
+{'0, 1'b1}

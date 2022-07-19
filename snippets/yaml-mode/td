@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: typedef
+# key: td
+# expand-env: ((yas-indent-line 'fixed))
+# --
+- name: $1_t
+  base_type: ${2:logic}
+  width: $3
+  doc_summary: $4

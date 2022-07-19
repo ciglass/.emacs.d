@@ -1,17 +1,19 @@
 #+TITLE: Cameron Glass' Emacs Configuration
 * Setup
   Clone this repository in the ~/.emacs.d directory.
-  This repository uses the newer-style
+  This repository uses the newer-style init.el instead of a .emacs file.
 ** Package installation
    On first run, several package will not be installed. 
 *** Install packages by doing =M-x package-list-packages=
 *** For each package to install, go to appropriate line and mark by hitting =i=
 **** hc-zenburn-theme
 **** yasnippet
+**** yaml-mode
+**** json-mode
 *** Install by hitting =x=
 *** Restart emacs
 ** Submodule Setup
-   The qgrep package is install by source as a submodule.
+   The qgrep package is installed by source as a submodule.
 #+BEGIN_SRC bash
 cd ~/.emacs.d
 git submodule init
@@ -78,6 +80,7 @@ git submodule update
   (global-set-key (kbd "\C-x i")  'select-previous-window)
 #+END_SRC
 ** Buffer Menu
+   I prefer to change the default behavior for how buffer menus pop up.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'buffer-menu)
   (global-set-key (kbd "C-x C-S-b") 'buffer-menu-other-window)
@@ -123,29 +126,35 @@ git submodule update
   (global-set-key [f4] (lambda () (interactive) (shell "*shell*<4>")))
 
   (global-set-key (kbd "\C-c w") 'find-file-at-point)
-#+END_SRC
-* TODO Misc Buffer Behavior
-#+BEGIN_SRC emacs-lisp
-  (show-paren-mode 1)
-  (setq-default truncate-lines t)
-  (setq-default indent-tabs-mode nil)
-
-  (fset 'yes-or-no-p 'y-or-n-p)
-
-  (require 'uniquify)
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-                                          ;(setq uniquify-separator "/")
-  (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-  (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
   (defun copy-line ()
     "Copy from the current point to end of the line to the kill ring without deleting it."
     (interactive)
     (copy-region-as-kill (point) (line-end-position)))
   (global-set-key (kbd "C-S-k") 'copy-line)
-
-  ; YAS
+#+END_SRC
+* yasnippet
+#+BEGIN_SRC emacs-lisp
   (yas-global-mode)
+#+END_SRC
+* Misc Buffer Behavior
+** Buffer Uniquification
+#+BEGIN_SRC emacs-lisp
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+  (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+  (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+#+END_SRC
+** TODO yes-or-no Conversion
+   Map the yes-or-no-p function to y-or-n-p for consistency.
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+** TODO Odds and Ends
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode 1)
+  (setq-default truncate-lines t)
+  (setq-default indent-tabs-mode nil)
 
   ; Name a macro with M-x kmacro-name-last-macro, then insert it with M-x insert-kb-macro, swap "lambda" for "defun <function name>", the put it into a comment in the file
   ; When want to recall it, eval the region that defines the function
@@ -229,5 +238,6 @@ git submodule update
    ;; If there is more than one, they won't work right.
    )
 #+END_SRC
-# Some other good emacs tips to explore: https://github.com/danielmai/.emacs.d
+# Some other good emacs tips to explore: https://github.com/danielmai/.emacs.d, https://github.com/wstucker/.emacs.d
+
 

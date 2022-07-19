@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rdlr
+# key: rdlr
+# --
+
+$1_t $1 @0x$2;$0

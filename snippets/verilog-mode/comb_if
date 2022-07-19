@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: comb_if
+# key: comb_if
+# --
+if ($1) begin
+  $0
+end

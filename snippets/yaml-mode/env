@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: enum_value
+# key: env
+# expand-env: ((yas-indent-line 'fixed))
+# --
+- name: $1
+  value: $2
+  doc_summary: $0

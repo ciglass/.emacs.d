@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name: channel_flop
+# key: ch
+# --
+  // $1
+  ch_flop
+    #(
+      .STAGES (core_pkg::${1:$(upcase yas-text)}),
+      .NET_TYPE ($2)
+      )
+  $1
+    (
+     .in_net ($3___$1),
+     .out_net ($4___$1),
+     /*AUTOINST*/
+     // Inputs
+     .eclk                              (eclk),
+     .reset_n                           (reset_n));
+
+  // $1
+  input  $2 $3___$1;
+  output $2 $4___$1;
+
+  // $1
+  localparam [31:0] ${1:$(upcase yas-text)) = 32'd2;

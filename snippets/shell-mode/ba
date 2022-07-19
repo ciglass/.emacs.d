@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Bazel action
+# key: ba
+# --
+bazel $1 //digital/rtl/$2:$3$0

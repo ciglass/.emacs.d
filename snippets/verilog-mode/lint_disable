@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lint_disable
+# key: ld
+# --
+// lint: disable=$0
