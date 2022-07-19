@@ -1,6 +1,4 @@
-.gitignore~
+*~
 settings.el
-init.el~
-settings.org~
 eshell/
 auto-save-list/
