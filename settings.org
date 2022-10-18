@@ -172,18 +172,6 @@ git submodule update
   (setq verilog-library-extensions '(".v" ".vh" ".sv" ".svh" ".vams"))
   (add-to-list 'auto-mode-alist '("\\.vams\\'" . verilog-mode))
 #+END_SRC
-* Wavedrom
-  Make json tabs smaller to match the width of the wavedrom editor defaults
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'json-mode-hook
-            (lambda ()
-              (make-local-variable 'js-indent-level)
-              (setq js-indent-level 2)))
-#+END_SRC
-  Make all wavedrom files come up in json-mode without a mode string at the top of the file
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.wavedrom\\'" . json-mode))
-#+END_SRC
 * Misc Buffer Behavior
 ** Buffer Uniquification
 #+BEGIN_SRC emacs-lisp
