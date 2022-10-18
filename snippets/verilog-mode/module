@@ -3,7 +3,7 @@
 # key: module
 # expand-env: ((yas-indent-line 'fixed))
 # --
-// Copyright (c) `(shell-command-to-string "echo -n $(date +%Y)")` ${2:Lightelligence}
+// Copyright (c) `(shell-command-to-string "echo -n $(date +%Y)")` ${2}
 // Description: $3
 
 module ${4:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`}

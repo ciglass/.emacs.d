@@ -137,6 +137,41 @@ git submodule update
 #+BEGIN_SRC emacs-lisp
   (yas-global-mode)
 #+END_SRC
+* Verilog Mode
+** Misc Settings
+#+BEGIN_SRC emacs-lisp
+  (setq verilog-typedef-regexp "\\(\\(_t\\)\\|\\(_e\\)\\|\\(_T\\)\\)$")
+
+  ;; Comment indentation
+  (setq verilog-indent-level              2
+        verilog-indent-level-module       2
+        verilog-indent-level-declaration  2
+        verilog-indent-level-behavioral   2
+        verilog-indent-level-directive    2
+        verilog-indent-begin-after-if     nil
+        verilog-indent-lists              t
+        verilog-indent-declaration-macros nil
+        verilog-case-indent               2
+        verilog-auto-newline              nil
+        verilog-minimum-comment-distance  12
+        verilog-align-ifelse              t
+        verilog-auto-endcomments          nil
+        verilog-auto-unused-ignore-regexp "^\\(\\(unused__\\)\\|\\(\\vss\\)\\|\\(vdd\\)\\|\\(gnd\\)\\|\\(subs\\)\\|\\(psub\\)\\)"
+        verilog-auto-input-ignore-regexp "^unused__"
+        verilog-auto-output-ignore-regexp "^unused__"
+        )
+#+END_SRC
+** AUTOINST
+   Make AUTOINST easier
+#+BEGIN_SRC emacs-lisp
+  (setq verilog-auto-inst-param-value t)
+  (setq verilog-auto-inst-param-type t)
+#+END_SRC
+  Look for the following file extensions for AUTOINST
+#+BEGIN_SRC emacs-lisp
+  (setq verilog-library-extensions '(".v" ".vh" ".sv" ".svh" ".vams"))
+  (add-to-list 'auto-mode-alist '("\\.vams\\'" . verilog-mode))
+#+END_SRC
 * Misc Buffer Behavior
 ** Buffer Uniquification
 #+BEGIN_SRC emacs-lisp
@@ -168,6 +203,7 @@ git submodule update
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.bzl\\'" . python-mode))
   (add-to-list 'auto-mode-alist '("\\BUILD\\'" . python-mode))
+  (add-to-list 'auto-mode-alist '("\\WORKSPACE\\'" . python-mode))
 #+END_SRC
 * Wavedrom
 #+BEGIN_SRC emacs-lisp
