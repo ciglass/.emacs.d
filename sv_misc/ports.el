@@ -6,7 +6,6 @@
           (port-type)
           (new-port-type)
           (trailing-text))
-      (message (format "Looking at line %s" this-line))
       (let ((m (string-match "\\(.*\\)\\(input\\|output\\)\\(.*\\)" this-line)))
         (when m
           (setq leading-text (match-string 1 this-line)
@@ -36,7 +35,6 @@ If any part of a line is contained within the region, that line's port direction
 Note: The behavior is inconsistent when the end of the region is the beginning of a line.
 Sometimes the line is toggled, sometimes it isn't. It doesn't seem worth it to fix since the workaround is easy."
   (interactive "r")
-  (message (format "Toggling region between %d and %d" begin end))
   (save-excursion
     (goto-char begin)
     (while (<= (point) end)
