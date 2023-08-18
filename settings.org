@@ -174,11 +174,13 @@ git submodule update
 #+END_SRC
 ** System Verilog Helpers
 #+BEGIN_SRC emacs-lisp
+  ;; This method of loading wasn't working and I haven't yet spent the time to debug it
   ;; (let ((default-directory "~/.emacs.d/sv_misc/"))
   ;;   (normal-top-level-add-to-load-path '("."))
   ;;   (normal-top-level-add-subdirs-to-load-path))
   (load-file "~/.emacs.d/sv_misc/ports.el")
-  (global-set-key (kbd "\C-c p") 'sv-port-toggle)
+  (global-set-key (kbd "\C-c P") 'sv-port-toggle-line)
+  (global-set-key (kbd "\C-c p") 'sv-port-toggle-region)
 #+END_SRC
 * Misc Buffer Behavior
 ** Buffer Uniquification
