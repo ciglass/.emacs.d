@@ -1,5 +1,5 @@
 (defun sv-port-toggle-helper ()
-  "Toggle a System Verilog port on the current line between being an input and input."
+  "Helper function for port direction toggling. Toggle a port direction in the current line between input and output without fixing indendation."
   (save-excursion
     (let ((this-line (thing-at-point 'line t))
           (leading-text)
@@ -20,8 +20,7 @@
           (insert (format "%s%s%s\n" leading-text new-port-type trailing-text)))))))
 
 (defun sv-port-toggle-line ()
-  "Toggle a System Verilog port on the current line between being an input and output."
-  ;;
+  "Toggle a System Verilog port direction in the current line between input and output."
   (interactive)
   (sv-port-toggle-helper)
   ;; I find this convenient, but it may get slow for big files
@@ -29,7 +28,7 @@
   (electric-verilog-tab))
 
 (defun sv-port-toggle-region (begin end)
-  "Toggle all the system verilog ports on the lines in the region between output and input.
+  "Toggle all the System Verilog port directions in the lines in the region between input and output.
 If any part of a line is contained within the region, that line's port direction will be toggled.
 
 Note: The behavior is inconsistent when the end of the region is the beginning of a line.
