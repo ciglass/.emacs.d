@@ -4,8 +4,7 @@
 
 (defun insert-from-shell (PROGRAM &rest ARGS)
   "Run PROGRAM with ARGS and return the exit code and output in a list."
-  (apply 'call-process PROGRAM nil (current-buffer) nil ARGS)
-  (buffer-string))
+  (apply 'call-process PROGRAM nil (current-buffer) nil ARGS))
 
 ;; This was an attempt to capture the exit code and flag to the user, but it wasn't working properly
 ;; (defun insert-from-shell (program &rest args)
